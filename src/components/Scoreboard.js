@@ -21,7 +21,7 @@ export default function Scoreboard() {
 
   const [sort_by, set_sort_by] = useState("score")
 
-  const sortFunction = sort_by === "score" ? compare_name : compare_score
+  const sortFunction = sort_by === "score" ? compare_score : compare_name
 
   const players_sorted = [...players].sort(sortFunction)
 
@@ -45,9 +45,24 @@ export default function Scoreboard() {
     console.log("what is:", new_players_array)
   }
 
+  const resetScore = () => {
+    const players_reset = players.map((player) => {
+      if (player) {
+        return {
+          ...player,
+          score: player.score - player.score,
+        }
+      } else {
+        return player
+      }
+    })
+    set_players(players_reset)
+  }
+
   return (
     <div className="Scoreboard">
       <h1>Player's scores:</h1>
+      <button onClick={resetScore}>reset</button>
       <p>
         Sort order:{" "}
         <select onChange={change_sorting}>
