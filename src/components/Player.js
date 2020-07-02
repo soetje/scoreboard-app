@@ -1,9 +1,16 @@
 import React from "react"
 
 export default function player(props) {
+  const onClickIncrement = () => {
+    props.incrementScore(props.id)
+  }
+
   return (
-    <li className="Player">
-      <p>{props.name}</p>
-    </li>
+    <ul>
+      <li className="Player">
+        {props.name} (score:{props.score})
+        <button onClick={onClickIncrement}>increment</button>
+      </li>
+    </ul>
   )
 }
