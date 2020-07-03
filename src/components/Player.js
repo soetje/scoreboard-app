@@ -1,4 +1,5 @@
 import React from "react"
+import "./Player.scss"
 
 export default function player(props) {
   const onClickIncrement = () => {
@@ -8,6 +9,10 @@ export default function player(props) {
   return (
     <ul>
       <li className="Player">
+        <div
+          className="percentage_coloring"
+          style={{ width: props.score + "%" }}
+        />
         {props.name} (score:{props.score})
         <button onClick={onClickIncrement}>increment</button>
       </li>

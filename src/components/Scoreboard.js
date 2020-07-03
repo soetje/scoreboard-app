@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import Player from "./Player"
+import "./Scoreboard.scss"
+import AddPlayerForm from "./AddPlayerForm"
 
 // import AddPlayerForm from "./AddPlayerForm"
 
@@ -13,10 +15,10 @@ function compare_name(player_a, player_b) {
 
 export default function Scoreboard() {
   const [players, set_players] = useState([
-    { id: 1, name: "Imre", score: 11 },
-    { id: 2, name: "David", score: 14 },
-    { id: 3, name: "Karla", score: 4 },
-    { id: 4, name: "Jeroen", score: 42 },
+    { id: 1, name: "Imre", score: 0 },
+    { id: 2, name: "David", score: 0 },
+    { id: 3, name: "Karla", score: 0 },
+    { id: 4, name: "Jeroen", score: 0 },
   ])
 
   const [sort_by, set_sort_by] = useState("score")
@@ -32,6 +34,7 @@ export default function Scoreboard() {
 
   const incrementScore = (id) => {
     const new_players_array = players.map((player) => {
+      console.log("what is id:", id)
       if (player.id === id) {
         return {
           ...player,
@@ -59,6 +62,17 @@ export default function Scoreboard() {
     set_players(players_reset)
   }
 
+  const addPlayer = (name) => {
+    console.log("Let's add a new player with the name:", name)
+    const newPlayer = {
+      name: name,
+      score: 0,
+      id: players.length + 1 
+    }
+    const newPlayers = [...players, newPlayer]
+    set_players(newPlayers)
+  }
+
   return (
     <div className="Scoreboard">
       <h1>Player's scores:</h1>
@@ -78,6 +92,9 @@ export default function Scoreboard() {
           incrementScore={incrementScore}
         />
       ))}
+      <AddPlayerForm
+        addPlayer = {addPlayer}
+      />
     </div>
   )
 }
